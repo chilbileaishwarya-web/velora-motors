@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#30312f"/><stop offset="1" stop-color="#070707"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#bg)"/>
+<ellipse cx="1150" cy="210" rx="300" ry="230" fill="#fff" opacity=".035"/>
+<path d="M170 690 C360 600 580 535 940 545 C1160 550 1370 630 1490 725 L1390 805 L250 805 Z" fill="#0a0a0a"/>
+<path d="M290 680 C470 535 760 485 1030 535 C1170 560 1280 620 1370 690 L1160 700 L1020 630 L550 630 L420 700 Z" fill="#1c1c1c" stroke="#fff" stroke-opacity=".18" stroke-width="5"/>
+<path d="M565 625 L690 545 L980 545 L1070 625 Z" fill="#0b0b0b" stroke="#777" stroke-opacity=".35" stroke-width="4"/>
+<circle cx="500" cy="750" r="82" fill="#070707" stroke="#999" stroke-width="9"/><circle cx="500" cy="750" r="37" fill="#242424"/>
+<circle cx="1160" cy="750" r="82" fill="#070707" stroke="#999" stroke-width="9"/><circle cx="1160" cy="750" r="37" fill="#242424"/>
+<text x="800" y="180" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="65" font-style="italic">BENTLEY CONTINENTAL GT</text>
+<text x="800" y="910" text-anchor="middle" fill="#fff" opacity=".48" font-family="Arial,sans-serif" font-size="23" letter-spacing="9">VELORA MOTORS / LUXURY AUTOMOTIVE</text>
+</svg>

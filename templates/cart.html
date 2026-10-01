@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Cart — VELORA MOTORS{% endblock %}
+{% block content %}
+<section class="simple-head"><p class="kicker">VELORA / CART</p><h1>Your <i>garage.</i></h1></section>
+<section class="section cart-layout">
+  <div>
+    {% if items %}
+      <form method="post" action="{{ url_for('update_cart') }}">
+      {% for item in items %}
+      <article class="cart-item">
+        <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
+        <div class="cart-info"><span>{{ item.brand }}</span><h3>{{ item.name }}</h3><strong>₹{{ "{:,.0f}".format(item.price) }}</strong></div>
+        <div class="quantity"><label>QTY</label><input name="qty_{{ item.id }}" type="number" min="0" max="5" value="{{ item.quantity }}"></div>
+        <div class="subtotal">₹{{ "{:,.0f}".format(item.subtotal) }}</div>
+        <button class="remove" formaction="{{ url_for('remove_from_cart', car_id=item.id) }}" formmethod="post" title="Remove">×</button>
+      </article>
+      {% endfor %}
+      <button class="update-btn" type="submit">Update cart</button>
+      </form>
+    {% else %}
+      <div class="empty"><h2>Your cart is empty.</h2><p>There is a machine waiting for you.</p><a class="btn dark" href="{{ url_for('shop') }}">Shop cars →</a></div>
+    {% endif %}
+  </div>
+  {% if items %}
+  <aside class="summary">
+    <p class="kicker">ORDER SUMMARY</p>
+    <div><span>Subtotal</span><strong>₹{{ "{:,.0f}".format(total) }}</strong></div>
+    <div><span>Delivery</span><strong>FREE</strong></div>
+    <hr><div class="total"><span>Total</span><strong>₹{{ "{:,.0f}".format(total) }}</strong></div>
+    <a class="btn dark full" href="{{ url_for('checkout') }}">Proceed to checkout →</a>
+    <p class="small-note">Demo checkout. No real money is charged.</p>
+  </aside>
+  {% endif %}
+</section>
+{% endblock %}

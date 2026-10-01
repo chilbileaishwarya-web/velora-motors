@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ car.brand }} {{ car.name }} — VELORA{% endblock %}
+{% block content %}
+<section class="product-detail">
+  <div class="detail-photo"><img src="{{ url_for('static', filename='images/' + car.image) }}" alt="{{ car.brand }} {{ car.name }}"></div>
+  <div class="detail-info">
+    <p class="kicker">{{ car.brand }} / {{ car.type }}</p>
+    <h1>{{ car.name }}</h1>
+    <div class="price">₹{{ "{:,.0f}".format(car.price) }}</div>
+    <p class="desc">{{ car.description }}</p>
+
+    <div class="specs">
+      <div><span>POWER</span><strong>{{ car.power }}</strong></div>
+      <div><span>ENGINE</span><strong>{{ car.engine }}</strong></div>
+      <div><span>0–100</span><strong>{{ car.zero }}</strong></div>
+      <div><span>TOP SPEED</span><strong>{{ car.speed }}</strong></div>
+    </div>
+
+    <form method="post" action="{{ url_for('add_to_cart', car_id=car.id) }}" class="buy-box">
+      <input type="hidden" name="next" value="{{ url_for('cart') }}">
+      <button class="btn gold buy-btn" type="submit">Add to cart <span>→</span></button>
+    </form>
+    <form method="post" action="{{ url_for('add_to_cart', car_id=car.id) }}">
+      <input type="hidden" name="next" value="{{ url_for('checkout') }}">
+      <button class="buy-now" type="submit">Buy now</button>
+    </form>
+    <p class="small-note">Demo purchase experience. No real payment is processed.</p>
+  </div>
+</section>
+<section class="section product-story">
+  <p class="kicker">THE AUTOMOBILE</p><h2>Engineered to be remembered.</h2>
+  <p>{{ car.description }} This vehicle is part of the fictional VELORA Motors collection created for an educational e-commerce project.</p>
+</section>
+{% endblock %}

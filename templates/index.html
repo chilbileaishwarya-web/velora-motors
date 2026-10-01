@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}VELORA MOTORS — Luxury Cars{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-shade"></div>
+  <div class="hero-content">
+    <p class="kicker">VELORA MOTORS / EST. 2026</p>
+    <h1>Drive the<br><i>extraordinary.</i></h1>
+    <p class="hero-sub">A curated online collection of supercars, performance icons and grand tourers — ready to make yours.</p>
+    <a href="{{ url_for('shop') }}" class="btn gold">Shop the collection <span>→</span></a>
+  </div>
+  <div class="hero-scroll">SCROLL TO DISCOVER ↓</div>
+</section>
+
+<section class="section">
+  <div class="heading-row">
+    <div><p class="kicker">THE COLLECTION</p><h2>Featured cars</h2></div>
+    <a class="view-link" href="{{ url_for('shop') }}">View all →</a>
+  </div>
+  <div class="product-grid">
+    {% for car in featured %}
+    <article class="product-card">
+      <a class="product-img" href="{{ url_for('product', car_id=car.id) }}">
+        <img src="{{ url_for('static', filename='images/' + car.image) }}" alt="{{ car.brand }} {{ car.name }}" loading="lazy">
+        <span class="tag">{{ car.type }}</span>
+      </a>
+      <div class="product-body">
+        <span class="brand-name">{{ car.brand }}</span>
+        <h3>{{ car.name }}</h3>
+        <div class="product-meta"><strong>₹{{ "{:,.0f}".format(car.price) }}</strong><span>{{ car.power }}</span></div>
+        <div class="card-actions">
+          <a class="details" href="{{ url_for('product', car_id=car.id) }}">Details</a>
+          <form method="post" action="{{ url_for('add_to_cart', car_id=car.id) }}">
+            <input type="hidden" name="next" value="{{ url_for('cart') }}">
+            <button class="add-mini" type="submit">Add to cart +</button>
+          </form>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="dark-feature">
+  <div><p class="kicker">THE VELORA DIFFERENCE</p><h2>Not just a car.<br><i>Your next statement.</i></h2></div>
+  <div class="feature-copy"><p>Shop extraordinary automobiles through a clean, premium digital buying experience.</p><a href="{{ url_for('shop') }}" class="text-light">Explore inventory →</a></div>
+</section>
+
+<section class="section benefits">
+  <div><span>01</span><h3>Curated Selection</h3><p>Performance cars selected for design, engineering and character.</p></div>
+  <div><span>02</span><h3>Transparent Pricing</h3><p>See the vehicle price before adding it to your cart.</p></div>
+  <div><span>03</span><h3>Simple Checkout</h3><p>Choose your car, checkout and receive an instant demo order confirmation.</p></div>
+</section>
+{% endblock %}

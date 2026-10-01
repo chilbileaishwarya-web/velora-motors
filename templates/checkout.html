@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Checkout — VELORA MOTORS{% endblock %}
+{% block content %}
+<section class="simple-head"><p class="kicker">VELORA / CHECKOUT</p><h1>Complete your <i>purchase.</i></h1></section>
+<section class="section checkout-layout">
+  <form class="checkout-form" method="post">
+    {% if error %}<div class="form-error">{{ error }}</div>{% endif %}
+    <h2>Customer information</h2>
+    <div class="two"><label>Full name *<input name="name" required></label><label>Email *<input name="email" type="email" required></label></div>
+    <label>Phone *<input name="phone" required></label>
+    <h2>Delivery address</h2>
+    <label>Address *<textarea name="address" rows="3" required></textarea></label>
+    <div class="three"><label>City *<input name="city" required></label><label>State *<input name="state" required></label><label>PIN code *<input name="pincode" required></label></div>
+    <h2>Payment</h2>
+    <div class="payment-options">
+      <label><input type="radio" name="payment" value="Demo Card" checked> Demo Card</label>
+      <label><input type="radio" name="payment" value="Demo UPI"> Demo UPI</label>
+      <label><input type="radio" name="payment" value="Pay on Delivery"> Pay on Delivery</label>
+    </div>
+    <button class="btn gold full" type="submit">Place order →</button>
+    <p class="small-note">This is a student/demo project. No real payment gateway is connected.</p>
+  </form>
+
+  <aside class="summary checkout-summary">
+    <p class="kicker">YOUR ORDER</p>
+    {% for item in items %}
+    <div class="order-line"><span>{{ item.brand }} {{ item.name }} × {{ item.quantity }}</span><strong>₹{{ "{:,.0f}".format(item.subtotal) }}</strong></div>
+    {% endfor %}
+    <hr><div class="total"><span>Total</span><strong>₹{{ "{:,.0f}".format(total) }}</strong></div>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Shop Cars — VELORA MOTORS{% endblock %}
+{% block content %}
+<section class="shop-head">
+  <div><p class="kicker">VELORA MOTORS / SHOP</p><h1>Choose your<br><i>next machine.</i></h1></div>
+  <p>{{ cars_list|length }} vehicles available in the collection.</p>
+</section>
+
+<section class="section shop-section">
+  <form class="filters" method="get">
+    <input name="q" value="{{ q }}" type="search" placeholder="Search cars or brands...">
+    <select name="brand">
+      <option value="">All brands</option>
+      {% for b in brands %}<option value="{{ b }}" {% if selected_brand == b %}selected{% endif %}>{{ b }}</option>{% endfor %}
+    </select>
+    <select name="type">
+      <option value="">All types</option>
+      {% for t in types %}<option value="{{ t }}" {% if selected_type == t %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+    <select name="sort">
+      <option value="featured" {% if selected_sort == "featured" %}selected{% endif %}>Featured</option>
+      <option value="low" {% if selected_sort == "low" %}selected{% endif %}>Price: Low to High</option>
+      <option value="high" {% if selected_sort == "high" %}selected{% endif %}>Price: High to Low</option>
+      <option value="name" {% if selected_sort == "name" %}selected{% endif %}>Name</option>
+    </select>
+    <button class="filter-btn" type="submit">Apply</button>
+  </form>
+
+  <div class="results-bar"><span>{{ cars_list|length }} RESULTS</span><a href="{{ url_for('shop') }}">Reset filters</a></div>
+
+  <div class="product-grid">
+    {% for car in cars_list %}
+    <article class="product-card">
+      <a class="product-img" href="{{ url_for('product', car_id=car.id) }}">
+        <img src="{{ url_for('static', filename='images/' + car.image) }}" alt="{{ car.brand }} {{ car.name }}" loading="lazy">
+        <span class="tag">{{ car.type }}</span>
+      </a>
+      <div class="product-body">
+        <span class="brand-name">{{ car.brand }}</span>
+        <h3>{{ car.name }}</h3>
+        <div class="product-meta"><strong>₹{{ "{:,.0f}".format(car.price) }}</strong><span>{{ car.power }}</span></div>
+        <div class="card-actions">
+          <a class="details" href="{{ url_for('product', car_id=car.id) }}">View details</a>
+          <form method="post" action="{{ url_for('add_to_cart', car_id=car.id) }}">
+            <input type="hidden" name="next" value="{{ url_for('cart') }}">
+            <button class="add-mini" type="submit">Add +</button>
+          </form>
+        </div>
+      </div>
+    </article>
+    {% else %}
+      <div class="empty"><h2>No cars found</h2><p>Try clearing the filters.</p><a class="btn dark" href="{{ url_for('shop') }}">Show all cars</a></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

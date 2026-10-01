@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed — VELORA MOTORS{% endblock %}
+{% block content %}
+<section class="success-page">
+  <div class="check">✓</div>
+  <p class="kicker">VELORA MOTORS</p>
+  <h1>Order <i>confirmed.</i></h1>
+  <p class="success-copy">Thank you, {{ order.name }}. Your demo purchase has been successfully recorded.</p>
+  <div class="order-card">
+    <div><span>ORDER NUMBER</span><strong>{{ order.order_number }}</strong></div>
+    <div><span>PAYMENT</span><strong>{{ order.payment }}</strong></div>
+    <div><span>TOTAL</span><strong>₹{{ "{:,.0f}".format(order.total) }}</strong></div>
+  </div>
+  <div class="ordered-items">
+    {% for item in order.items %}<p>{{ item.name }} <b>× {{ item.quantity }}</b></p>{% endfor %}
+  </div>
+  <div class="success-actions"><a class="btn dark" href="{{ url_for('shop') }}">Continue shopping →</a><a class="text-link" href="{{ url_for('index') }}">Back home</a></div>
+</section>
+{% endblock %}
